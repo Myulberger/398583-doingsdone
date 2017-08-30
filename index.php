@@ -21,37 +21,37 @@ $projects= ["Все", 'Входящие', 'Учеба', 'Работа', 'Дом�
 
 // comp array
 $tasks=[
-    0=> [
+    [
         'Задача'=>'Собеседование в IT компании',
         'Дата выполнения'=>'01.06.2018',
         'Категория'=>'Работа',
-        'Выполнен'=>'Нет' ],
-     1=> [
+        'Выполнен'=>false ],
+     [
         'Задача'=>'Выполнить тестовое задание',
         'Дата выполнения'=>'25.05.2018',
         'Категория'=>'Работа',
-        'Выполнен'=>'Нет' ],
-     2=> [
+        'Выполнен'=>false ],
+     [
         'Задача'=>'Сделать задание первого раздела',
         'Дата выполнения'=>'21.04.2018',
         'Категория'=>'Учеба',
-        'Выполнен'=>'Да' ],
+        'Выполнен'=>true ],
 
-     3=> [
+     [
         'Задача'=>'Встреча с друзьями',
         'Дата выполнения'=>'22.04.2018',
         'Категория'=>'Входящие',
-        'Выполнен'=>'Нет' ],
-     4=> [
+        'Выполнен'=>false ],
+     [
         'Задача'=>'Купить корм для кота',
         'Дата выполнения'=>'N.A.',
         'Категория'=>'Домашние дела',
-        'Выполнен'=>'Нет' ],
-     5=> [
+        'Выполнен'=>false ],
+     [
         'Задача'=>'Заказать пиццу',
         'Дата выполнения'=>'N.A.',
         'Категория'=>'Входящие',
-        'Выполнен'=>'Нет' ],
+        'Выполнен'=>false ],
     ];
 
 function CountTasks($TaskArray, $TaskItem) {
@@ -114,7 +114,7 @@ function CountTasks($TaskArray, $TaskItem) {
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                        <?php foreach ($projects as $key => $value): ?>
-                        <li class="main-navigation__list-item <?php if ($key==1) echo "main-navigation__list-item--active";?> ">
+                        <li class="main-navigation__list-item <?php if ($key==0) echo "main-navigation__list-item--active";?> ">
                             <a class="main-navigation__list-item-link" href="#"><? echo $value; ?></a>
                             <span class="main-navigation__list-item-count"><?php print (CountTasks($tasks,$value)); ?></span>
                         </li>
@@ -170,7 +170,7 @@ function CountTasks($TaskArray, $TaskItem) {
 
                 <table class="tasks">
                     <?php foreach ($tasks as $key => $value): ?>
-                    <tr class="tasks__item task <? if ($value['Выполнен']=='Да') echo 'task--completed'; ?>">
+                    <tr class="tasks__item task <? if ($value['Выполнен']) echo 'task--completed'; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox" checked>
@@ -179,7 +179,7 @@ function CountTasks($TaskArray, $TaskItem) {
                         </td>
                         <td class="task__date"> <? echo $value['Дата выполнения']; ?></td>
 
-                        <td class="task__controls"><? echo $value['Выполнен']; ?></td>
+                        <td class="task__controls"><? if ($value['Выполнен']) { echo 'Да';} else { echo 'Нет';} ?></td>
                     </tr>
                     
                     <?php endforeach ; ?>
