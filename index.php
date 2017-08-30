@@ -22,38 +22,52 @@ $projects= ["Все", 'Входящие', 'Учеба', 'Работа', 'Дом�
 // comp array
 $tasks=[
     0=> [
-        'Task'=>'Interview in IT company',
-        'Deadline'=>'01.06.2018',
-        'Category'=>'work',
-        'Status'=>'Not done' ],
+        'Задача'=>'Собеседование в IT компании',
+        'Дата выполнения'=>'01.06.2018',
+        'Категория'=>'Работа',
+        'Выполнен'=>'Нет' ],
      1=> [
-        'Task'=>'Complite test task',
-        'Deadline'=>'25.05.2018',
-        'Category'=>'work',
-        'Status'=>'Not done' ],
+        'Задача'=>'Выполнить тестовое задание',
+        'Дата выполнения'=>'25.05.2018',
+        'Категория'=>'Работа',
+        'Выполнен'=>'Нет' ],
      2=> [
-        'Task'=>'Complite first module',
-        'Deadline'=>'21.04.2018',
-        'Category'=>'study',
-        'Status'=>'Done' ],
+        'Задача'=>'Сделать задание первого раздела',
+        'Дата выполнения'=>'21.04.2018',
+        'Категория'=>'Учеба',
+        'Выполнен'=>'Да' ],
 
      3=> [
-        'Task'=>'Meet friend',
-        'Deadline'=>'22.04.2018',
-        'Category'=>'incoming',
-        'Status'=>'Not done' ],
+        'Задача'=>'Встреча с друзьями',
+        'Дата выполнения'=>'22.04.2018',
+        'Категория'=>'Входящие',
+        'Выполнен'=>'Нет' ],
      4=> [
-        'Task'=>'Get a cat food',
-        'Deadline'=>'N.A.',
-        'Category'=>'home',
-        'Status'=>'Not done' ],
+        'Задача'=>'Купить корм для кота',
+        'Дата выполнения'=>'N.A.',
+        'Категория'=>'Домашние дела',
+        'Выполнен'=>'Нет' ],
      5=> [
-        'Task'=>'Order pizza',
-        'Deadline'=>'N.A.',
-        'Category'=>'incoming',
-        'Status'=>'Not done' ],
+        'Задача'=>'Заказать пиццу',
+        'Дата выполнения'=>'N.A.',
+        'Категория'=>'Входящие',
+        'Выполнен'=>'Нет' ],
     ];
 
+function CountTasks($TaskArray, $TaskItem) {
+    $index=0;
+    if ($TaskItem=="Все") {
+        $index=count($TaskArray);
+        return $index;
+    }
+    foreach ($TaskArray as $key => $value) {
+        
+        if ($value['Категория']==$TaskItem) {
+            $index=$index+1;
+        }
+    }
+    return $index;
+}
 
 ?>
 <!DOCTYPE html>
@@ -102,28 +116,10 @@ $tasks=[
                        <?php foreach ($projects as $key => $value): ?>
                         <li class="main-navigation__list-item <?php if ($key==1) echo "main-navigation__list-item--active";?> ">
                             <a class="main-navigation__list-item-link" href="#"><? echo $value; ?></a>
-                            <span class="main-navigation__list-item-count">24</span>
+                            <span class="main-navigation__list-item-count"><?php print (CountTasks($tasks,$value)); ?></span>
                         </li>
                         <?php endforeach ;?>
-                       <!--- <li class="main-navigation__list-item main-navigation__list-item--active">
-                            <a class="main-navigation__list-item-link" href="#">Учеба</a>
-                            <span class="main-navigation__list-item-count">12</span>
-                        </li>
-
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Здоровье</a>
-                            <span class="main-navigation__list-item-count">3</span>
-                        </li>
-
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Домашние дела</a>
-                            <span class="main-navigation__list-item-count">7</span>
-                        </li>
-
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Авто</a>
-                            <span class="main-navigation__list-item-count">0</span>
-                        </li> -->
+                      
                         
                     </ul>
                 </nav>
@@ -174,63 +170,20 @@ $tasks=[
 
                 <table class="tasks">
                     <?php foreach ($tasks as $key => $value): ?>
-                    <tr class="tasks__item task <? if ($value['Status']=='Done') echo 'task--completed'; ?>">
+                    <tr class="tasks__item task <? if ($value['Выполнен']=='Да') echo 'task--completed'; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox" checked>
-                                <span class="checkbox__text"><? echo $value['Task']; ?></span>
+                                <span class="checkbox__text"><? echo $value['Задача']; ?></span>
                             </label>
                         </td>
-                        <td class="task__date"> <? echo $value['Deadline']; ?></td>
+                        <td class="task__date"> <? echo $value['Дата выполнения']; ?></td>
 
-                        <td class="task__controls"><? echo $value['Status']; ?></td>
+                        <td class="task__controls"><? echo $value['Выполнен']; ?></td>
                     </tr>
                     
                     <?php endforeach ; ?>
                     
-                     <?php //if ($show_complete_tasks==1): ?>
-                    <!--показывать следующий тег <tr/>, если переменная равна единице-->
-                    <!--<tr class="tasks__item task task--completed">
-                        <td class="task__select">
-                            <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden" type="checkbox" checked>
-                                <span class="checkbox__text">Записаться на интенсив "Базовый PHP"</span>
-                            </label>
-                        </td>
-                        <td class="task__date">10.04.2017</td>
-
-                        <td class="task__controls">
-                        </td>
-                    </tr>
-                    <?php //endif; ?>
-                    <tr class="tasks__item task <?php //if ($days_until_deadline<=0): ?> task--important<?php //endif; ?>">
-                        <td class="task__select">
-                            <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden" type="checkbox">
-                                <span class="checkbox__text">Выполнить первое задание</span>
-                            </label>
-                        </td>
-
-                        <td class="task__date">
-                        <?php //echo $date_deadline ?>
-                            <!--выведите здесь дату выполнения задачи-->
-                       <!-- </td>
-
-                        <td class="task__controls">
-                            <button class="expand-control" type="button" name="button">Выполнить первое задание</button>
-
-                            <ul class="expand-list hidden">
-                                <li class="expand-list__item">
-                                    <a href="#">Выполнить</a>
-                                </li>
-
-                                <li class="expand-list__item">
-                                    <a href="#">Удалить</a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>-->
-
                 </table>
             </main>
         </div>
