@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\css",
+    "\\templates"
   ],
   "SelectedNode": "\\index.php",
   "PreviewInSolutionExplorer": false
