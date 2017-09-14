@@ -4,8 +4,14 @@
 require "functions.php";
 
 
-$mainContent=renderTemplate("./templates/index.php", $tasks);
-$layoutFinal=renderTemplate("./templates/layout.php", $projects);
+$Content=renderTemplate("./templates/index.php", $tasks);
+
+$data4secondfunction = [
+    "mainContent"=>$Content,
+    'projects'=>$projects
+    ];
+
+$layoutFinal=renderTemplate("./templates/layout.php", $data4secondfunction);
 
 print $layoutFinal;
 ?>

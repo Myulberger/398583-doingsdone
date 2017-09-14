@@ -4,12 +4,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?$pagetitle?></title>
+    <title><?=$pagetitle;?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body><!--class="overlay"-->
+<body>
 <h1 class="visually-hidden">Дела в порядке</h1>
 
 <div class="page-wrapper">
@@ -56,7 +56,7 @@
                 <a class="button button--transparent button--plus content__side-button" href="#">Добавить проект</a>
             </section>
 
-            <?php print $mainContent ?>
+            <?=$mainContent;?>
         </div>
     </div>
 </div>

@@ -1,4 +1,25 @@
 <?php
+// показывать или нет выполненные задачи
+$show_complete_tasks = rand(0, 1);
+//update
+
+// устанавливаем часовой пояс в Московское время
+date_default_timezone_set('Europe/Moscow');
+
+$days = rand(-3, 3);
+$task_deadline_ts = strtotime("+" . $days . " day midnight"); // метка времени даты выполнения задачи
+$current_ts = strtotime('now midnight'); // текущая метка времени
+
+// запишите сюда дату выполнения задачи в формате дд.мм.гггг
+$date_deadline = date("d.m.y", $task_deadline_ts);
+
+// в эту переменную запишите кол-во дней до даты задачи
+$days_until_deadline = floor((-$current_ts + $task_deadline_ts)/86400);
+
+
+
+
+
 function CountTasks($TaskArray, $TaskItem) {
     $index=0;
     if ($TaskItem=="Все") {
@@ -15,25 +36,7 @@ function CountTasks($TaskArray, $TaskItem) {
 }
 
 
-function renderTemplate($filepath, $mainArray ){
-
-    // показывать или нет выполненные задачи
-    $show_complete_tasks = rand(0, 1);
-    //update
-
-    // устанавливаем часовой пояс в Московское время
-    date_default_timezone_set('Europe/Moscow');
-
-    $days = rand(-3, 3);
-    $task_deadline_ts = strtotime("+" . $days . " day midnight"); // метка времени даты выполнения задачи
-    $current_ts = strtotime('now midnight'); // текущая метка времени
-
-    // запишите сюда дату выполнения задачи в формате дд.мм.гггг
-    $date_deadline = date("d.m.y", $task_deadline_ts);
-
-    // в эту переменную запишите кол-во дней до даты задачи
-    $days_until_deadline = floor((-$current_ts + $task_deadline_ts)/86400);
-
+function renderTemplate($filepath, $mainArray) {
 
     // simple array
     $projects= ["Все", 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
@@ -72,8 +75,6 @@ function renderTemplate($filepath, $mainArray ){
             'Категория'=>'Входящие',
             'Выполнен'=>false ],
         ];
-
-
 
     if (file_exists($filepath)==false) {
         return "<html> <h1>error</h1> </html>";
